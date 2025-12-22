@@ -167,8 +167,3 @@ If you don’t:
 
 ## One Sentence Rule (Remember This)
 > “Finish something small before dreaming something big.”
-
-If you want next:
-- I can give you a **daily 30-day checklist**
-- Or a **GitHub repo structure**
-- Or a **Postman API checklist**
