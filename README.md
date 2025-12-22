@@ -1,6 +1,9 @@
+## Project Timeline
 
+- **Start Date:** 22 December 2025
+- **Handover Date:** 22 January 2026
 
-# Highly Scalable Folder Structure (Angular + NestJS Style)  
+## Highly Scalable Folder Structure (Angular + NestJS Style)  
 (Stack: Express.js (JS) + MongoDB/Prisma + Next.js (TS) – Monorepo)
 
 This structure mimics **modular, feature-based organization** like Angular and NestJS. Each feature is **self-contained** for easy scalability.

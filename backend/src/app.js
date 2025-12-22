@@ -1,11 +1,10 @@
 import express from 'express';
+import authRoutes from './modules/auth/auth.routes.js';
 
 const app = express()
 
 
 // routes
-app.get("/" , (req , res) => {
-    res.status(200).send("Server working")
-})
+app.use("/auth" , authRoutes)
 
 export default app
