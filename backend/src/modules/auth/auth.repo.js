@@ -8,5 +8,7 @@ export const authRepo = {
         return savedUser.toObject();
     },
 
-
+    findByEmail: async (email) => {
+        return User.findOne({ email }).lean()
+    },
 }

@@ -1,4 +1,4 @@
-import { Schema, model} from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 // ENUMS
 const UserRole = ['ADMIN', 'CUSTOMER'];
@@ -11,7 +11,7 @@ const UserSchema = new Schema({
   orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
   address: [{ type: Schema.Types.ObjectId, ref: 'Address' }],
   chats: [{ type: Schema.Types.ObjectId, ref: 'AIChatLog' }],
-  password: { type: String , select: false},
+  password: { type: String },
   isVerified: { type: Boolean, default: false },
   termsAccepted: { type: Boolean, default: false },
   verifyToken: { type: String },
@@ -21,4 +21,4 @@ const UserSchema = new Schema({
 }, { timestamps: true });
 
 
-export const User = model("User" , UserSchema)
+export const User = model("User", UserSchema)

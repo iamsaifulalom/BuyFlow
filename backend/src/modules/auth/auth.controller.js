@@ -1,6 +1,5 @@
 import { authService } from "./auth.service.js";
 
-
 export const authController = {
     userDetails: async (req, res, next) => {
         try {
@@ -14,14 +13,28 @@ export const authController = {
     signUp: async (req, res, next) => {
         try {
             const user = await authService.createUser(req.body);
-            
+
             res.status(201).json({
                 success: true,
-                message: "Signed up succesfully",
+                message: "Sign up succesfully",
                 data: user
             })
         } catch (error) {
             next(error)
         }
-    }
+    },
+
+    signIn: async (req, res, next) => {
+        try {
+            const credentials = await authService.signInUser(req.body);
+
+            res.status(200).json({
+                success: true,
+                message: "Sign in succesfully",
+                data: credentials
+            })
+        } catch (error) {
+            next(error)
+        }
+    },
 }
