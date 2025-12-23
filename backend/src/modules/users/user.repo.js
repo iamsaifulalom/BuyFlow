@@ -1,6 +1,6 @@
-import { User } from '../users/user.model.js';
+import { User } from './user.model.js';
 
-export const authRepo = {
+export const userRepo = {
 
     createUser: async (userData) => {
         const user = new User(userData);

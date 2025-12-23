@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authController } from './auth.controller.js';
-import { validateResource } from '../../common/midleware/resource-validator.js';
+import { validateResource } from '../../common/middleware/resource-validator.js';
 import { signInSchema, signUpSchema } from './auth.dtos.js';
 
 

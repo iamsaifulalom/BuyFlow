@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken'
 import 'dotenv/config';
-import { authRepo } from "./auth.repo.js";
+import { userRepo } from "../users/user.repo.js";
 import { AppError } from '../../common/utils/app-error.js';
 
 export const authService = {
@@ -9,10 +9,10 @@ export const authService = {
     createUser: async (body) => {
         const hashedPassword = await bcrypt.hash(body.password, 10);
 
-        const user = await authRepo.findByEmail(body.email);
+        const user = await userRepo.findByEmail(body.email);
         if (user) throw new AppError("Email is alredy registerd!", 409)
 
-        const newUser = await authRepo.createUser({
+        const newUser = await userRepo.createUser({
             ...body,
             password: hashedPassword,
             isVerified: true,
@@ -32,7 +32,7 @@ export const authService = {
     signInUser: async (body) => {
         const { email, password } = body;
 
-        const user = await authRepo.findByEmail(email);
+        const user = await userRepo.findByEmail(email);
         if (!user) throw new AppError("Email is not register yet!", 404);
 
         const match = await bcrypt.compare(password, user?.password);
