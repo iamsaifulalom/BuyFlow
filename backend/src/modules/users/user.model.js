@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-const { Schema, model } = mongoose;
+import { Schema, model} from 'mongoose';
 
 // ENUMS
 const UserRole = ['ADMIN', 'CUSTOMER'];
@@ -12,11 +11,11 @@ const UserSchema = new Schema({
   orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
   address: [{ type: Schema.Types.ObjectId, ref: 'Address' }],
   chats: [{ type: Schema.Types.ObjectId, ref: 'AIChatLog' }],
-  password: { type: String },
-  is_verified: { type: Boolean, default: false },
-  terms_accepted: { type: Boolean, default: false },
-  verify_token: { type: String },
-  verification_sent_at: { type: Date },
+  password: { type: String , select: false},
+  isVerified: { type: Boolean, default: false },
+  termsAccepted: { type: Boolean, default: false },
+  verifyToken: { type: String },
+  verificationSentAt: { type: Date },
   role: { type: String, enum: UserRole, default: 'CUSTOMER' },
   provider: { type: String, enum: AuthProvider, default: 'LOCAL' },
 }, { timestamps: true });

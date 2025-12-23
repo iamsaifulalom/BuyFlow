@@ -1,9 +1,12 @@
 import { Router } from 'express';
-import { authControllers } from './auth.controllers.js';
+import { authController } from './auth.controller.js';
+import { validateResource } from '../../common/midleware/resource-validator.js';
+import { signUpSchema } from './auth.schema.js';
 
 
 const routes = Router();
 
-routes.get("/me" , authControllers.userDetails)
+routes.get("/me", authController.userDetails)
+routes.post("/sign-up", validateResource(signUpSchema), authController.signUp)
 
 export default routes
