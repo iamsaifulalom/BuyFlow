@@ -1,4 +1,4 @@
-// src/schema/auth.schema.ts
+// src/schema/auth.dto.js
 import { z } from "zod";
 import {
   nameField,
