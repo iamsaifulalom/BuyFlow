@@ -12,24 +12,23 @@ const r2 = new S3Client({
     }
 })
 
-
 export const uploadService = {
-    signUrl: async (body) => {
-        const filePath = `${body.folderName}/${Date.now()}-${body.originalName}`;
+    signUrl: async ({ folderName, originalName, type, size }) => {
+        const filePath = `${folderName}/${Date.now()}-${originalName}`;
         const key = `buy-flow/${filePath}`
 
         const command = new PutObjectCommand({
             Bucket: process.env.R2_R2_BUCKET_NAME,
             Key: key,
-            ContentType: body.type,
+            ContentType: type,
         });
 
         const assetDoc = await assetRepo.createAsset({
             key,
             filePath,
-            originalName: body.originalName,
-            type: body.type,
-            size: body.size
+            originalName: originalName,
+            type: type,
+            size: size
         })
 
         const uploadUrl = await getSignedUrl(r2, command, { expiresIn: 300 });
