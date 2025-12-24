@@ -25,7 +25,7 @@ export const signInSchema = z.object({
 /* ---------------- EMAIL VERIFY ---------------- */
 export const verifySchema = z.object({
   verify_token: tokenField,
-  email: z.email()
+  email: emailField
 });
 
 /* ---------------- PASSWORD RESET ---------------- */
