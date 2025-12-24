@@ -1,70 +1,33 @@
+import 'dotenv/config';
 import mongoose from "mongoose";
 
-const assetSchema = new mongoose.Schema(
-  {
-    url: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+const AssetStatus = Object.freeze(["TEMP", "USED"]);
+const AssetType = Object.freeze(["image", "video", "pdf"]);
 
-    type: {
-      type: String,
-      required: true,
-      enum: ["image", "video", "pdf", "audio", "doc"],
-      index: true,
-    },
+const assetSchema = new mongoose.Schema({
+  filePath: { type: String, required: true, trim: true }, // relative path of s3 bucket
+  type: { type: String, enum: AssetType, required: true },
+  size: { type: Number, required: true, min: 1 },
+  key: { type: String, required: true, min: 1, trim: true },
 
-    mimeType: {
-      type: String,
-      required: true,
-    },
+  originalName: { type: String, required: true, trim: true },
+  altText: { type: String, trim: true },
 
-    size: {
-      type: Number, // bytes
-      required: true,
-      min: 1,
-    },
+  duration: { type: Number, min: 0 },
+  width: { type: Number, min: 1 },
+  height: { type: Number, min: 1 },
+  pages: { type: Number, min: 1 },
 
-    originalName: {
-      type: String,
-      required: true,
-    },
+  status: { type: String, enum: AssetStatus, default: "TEMP", index: true },
+  usedByIds: { type: [String], default: [] }
+}, { timestamps: true, versionKey: false });
 
-    title: {
-      type: String,
-      trim: true,
-    },
+assetSchema.virtual("url").get(function () {
+  if (!process.env.CDN_BASE_URL) return this.filePath;
+  return `${process.env.CDN_BASE_URL}/${this.filePath}`;
+});
 
-    altText: {
-      type: String,
-      trim: true,
-    },
-
-    duration: {
-      type: Number, // seconds (video/audio)
-      min: 0,
-    },
-
-    width: {
-      type: Number,
-      min: 1,
-    },
-
-    height: {
-      type: Number,
-      min: 1,
-    },
-
-    pages: {
-      type: Number, // PDF pages
-      min: 1,
-    },
-  },
-  {
-    timestamps: true, // adds createdAt & updatedAt
-    versionKey: false,
-  }
-);
+assetSchema.set("toJSON", { virtuals: true });
+assetSchema.set("toObject", { virtuals: true });
 
 export const Asset = mongoose.model("Asset", assetSchema);

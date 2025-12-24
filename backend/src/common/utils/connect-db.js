@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import "dotenv/config";
+import mongoose from "mongoose";
 
 export async function connectDB() {
     const state = mongoose.connection.readyState;

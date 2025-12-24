@@ -18,7 +18,7 @@ const UserSchema = new Schema({
   verificationSentAt: { type: Date },
   role: { type: String, enum: UserRole, default: 'CUSTOMER' },
   provider: { type: String, enum: AuthProvider, default: 'LOCAL' },
-}, { timestamps: true });
+}, { timestamps: true , versionKey: false});
 
 
 export const User = model("User", UserSchema)
