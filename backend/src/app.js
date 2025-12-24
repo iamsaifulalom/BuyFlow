@@ -5,6 +5,8 @@ import authRoutes from './modules/auth/auth.routes.js';
 import assetsRoutes from './modules/assets/asset.routes.js';
 import categoriesRoutes from './modules/categories/category.routes.js';
 import { notFoundHandler } from './common/middleware/not-found.js';
+import { swaggerSpec } from './common/docs/swagger.js';
+import swaggerUI from 'swagger-ui-express'
 
 const app = express();
 
@@ -17,10 +19,10 @@ app.disable("x-powered-by");
 app.use(express.json());
 
 // routes
-app.use("/auth", authRoutes)
-app.use("/assets", assetsRoutes)
-app.use("/categories", categoriesRoutes)
-
+app.use("/auth", authRoutes);
+app.use("/assets", assetsRoutes);
+app.use("/categories", categoriesRoutes);
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 app.use(errorHandler)
 app.use(notFoundHandler)
