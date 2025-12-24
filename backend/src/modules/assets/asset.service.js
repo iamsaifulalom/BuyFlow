@@ -32,6 +32,6 @@ export const uploadService = {
         })
 
         const uploadUrl = await getSignedUrl(r2, command, { expiresIn: 300 });
-        return { uploadUrl, assetId: assetDoc.id }
+        return { uploadUrl, assetId: assetDoc.id , url: assetDoc.url }
     }
 }
