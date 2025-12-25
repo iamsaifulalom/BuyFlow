@@ -52,6 +52,9 @@ jobs:
       - name: Build the Project
         working-directory: ./frontend
         run: pnpm build
+        
+      - name: Install Vercel CLI globally
+        run: pnpm add -g vercel
 
       - name: Deploy to Vercel
         working-directory: ./frontend
