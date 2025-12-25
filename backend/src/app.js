@@ -34,6 +34,7 @@ app.use("/assets", assetsRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(generateOpenApiSpec()));
 
+// error handler 
 app.use(errorHandler)
 app.use(notFoundHandler)
 

@@ -20,7 +20,8 @@ registry.registerPath({
 
     responses: {
         201: { description: "Sign up successfully" },
-        401: { description: "Invalid email or password" }
+        401: { description: "Invalid email or password" },
+        409: { description: "Email alredy registerd or may has a conflict" },
     },
 });
 

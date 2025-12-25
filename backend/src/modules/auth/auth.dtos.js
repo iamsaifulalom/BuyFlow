@@ -1,5 +1,5 @@
 // src/schema/auth.dto.js
-import { extendedZod } from '../../common/docs/extend-zod.js'
+import { extendedZod as z } from '../../common/docs/extend-zod.js'
 import {
   nameField,
   emailField,
@@ -9,7 +9,7 @@ import {
 } from "../../common/schema/schema.field.js";
 
 /* ---------------- SIGN UP ---------------- */
-export const signUpSchema = extendedZod.object({
+export const signUpSchema = z.object({
   name: nameField,
   email: emailField,
   password: passwordField,
@@ -17,19 +17,19 @@ export const signUpSchema = extendedZod.object({
 }).openapi("Sign up body");
 
 /* ---------------- SIGN IN ---------------- */
-export const signInSchema = extendedZod.object({
+export const signInSchema = z.object({
   email: emailField,
   password: passwordField,
 }).openapi("Sign in body");
 
 /* ---------------- EMAIL VERIFY ---------------- */
-export const verifySchema = extendedZod.object({
+export const verifySchema = z.object({
   verify_token: tokenField,
   email: emailField
 });
 
 /* ---------------- PASSWORD RESET ---------------- */
-export const resetPasswordSchema = extendedZod.object({
+export const resetPasswordSchema = z.object({
   token: tokenField,
   new_password: passwordField,
 });
