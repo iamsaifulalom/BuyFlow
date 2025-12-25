@@ -27,12 +27,12 @@ export const categoryService = {
 
     getCategories: async () => {
         const categories = await categoryRepo.getCategories();
-        
+
         const structuredCategories = categories
             .map(({ name, slug, image }) => ({
                 name, slug, image
             }));
 
-        return { structuredCategories }
+        return [...structuredCategories]
     },
 }
