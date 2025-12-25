@@ -1,3 +1,6 @@
+// src/app.js
+
+import './load-docs.js'
 import express from 'express';
 import { errorHandler } from './common/middleware/error-handler.js';
 import { connectDB } from './common/utils/connect-db.js';
@@ -5,8 +8,8 @@ import authRoutes from './modules/auth/auth.routes.js';
 import assetsRoutes from './modules/assets/asset.routes.js';
 import categoriesRoutes from './modules/categories/category.routes.js';
 import { notFoundHandler } from './common/middleware/not-found.js';
-import { swaggerSpec } from './common/docs/swagger.js';
 import swaggerUI from 'swagger-ui-express'
+import { generateOpenApiSpec } from './common/docs/generate-openapi.js';
 
 const app = express();
 
@@ -22,7 +25,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/assets", assetsRoutes);
 app.use("/categories", categoriesRoutes);
-app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(generateOpenApiSpec()));
 
 app.use(errorHandler)
 app.use(notFoundHandler)
