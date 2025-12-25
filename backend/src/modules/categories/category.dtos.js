@@ -42,3 +42,5 @@ export const updateCategorySchema = z.object({
     .array(z.string().regex(objectIdRegex, "Invalid ObjectId"))
     .optional()
 });
+
+

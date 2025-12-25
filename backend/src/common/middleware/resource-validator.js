@@ -1,26 +1,20 @@
-import { ZodError } from "zod";
 
-export const validateResource = (schema) =>
-    (req, res, next) => {
-        try {
-            schema.parse(req.body);
-            next();
-        } catch (error) {
+export const validateResource = (schema, key = "body") => (req, res, next) => {
 
-            if (error instanceof ZodError) {
-                
-                const { path, message } = error.issues[0];
+    const result = schema.safeParse(req[key]);
 
-                return res.status(400).json({
-                    success: false,
-                    message: "Validation failed",
-                    error: `${String(path[0])}: ${message}`,
-                });
-            }
+    if (!result.success) {
+        const issue = result.error.issues[0];
+        const pathName = issue?.path?.[0] ?? "unknown";
+        const message = issue?.message ?? "Invalid value";
 
-            return res.status(500).json({
-                success: false,
-                message: "Internal server error during validation",
-            });
-        }
-    };
+        return res.status(400).json({
+            success: false,
+            message: "Validation failed",
+            error: `${pathName}: ${message}`,
+        });
+    }
+
+    req[key] = result.data;
+    next();
+};

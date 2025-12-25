@@ -27,3 +27,10 @@ export const agreeField = z
     .openapi({ example: true });
 
 export const tokenField = z.string().min(1, "Token is required");
+
+// Reusable schema for route param `id` (MongoDB ObjectId style)
+export const idParam = z.object({
+    id: z.string()
+        .length(24, "Invalid ID")  // typical length for MongoDB ObjectId
+        .nonempty("ID is required")
+})
