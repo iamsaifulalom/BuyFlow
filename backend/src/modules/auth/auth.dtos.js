@@ -14,7 +14,7 @@ export const signUpSchema = extendedZod.object({
   email: emailField,
   password: passwordField,
   termsAccepted: agreeField,
-});
+}).openapi("Sign up body");
 
 /* ---------------- SIGN IN ---------------- */
 export const signInSchema = extendedZod.object({

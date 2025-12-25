@@ -5,8 +5,8 @@ export const nameField = extendedZod
     .string()
     .min(2, "Name must be at least 2 characters")
     .max(100, "Name is too long")
-    .openapi({ example: "Saiful Alom" })
-    .trim();
+    .trim()
+    .openapi({ example: "Saiful Alom" });
 
 export const emailField = extendedZod
     .string()
@@ -22,6 +22,8 @@ export const passwordField = extendedZod
     })
     .openapi({ example: "my password 12345" });
 
-export const agreeField = extendedZod.literal(true, { message: "You must agree to the Privacy Policy and Terms", });
+export const agreeField = extendedZod
+    .literal(true, { message: "You must agree to the Privacy Policy and Terms", })
+    .openapi({ example: true });
 
 export const tokenField = extendedZod.string().min(1, "Token is required");
