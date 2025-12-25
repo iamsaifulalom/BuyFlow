@@ -17,8 +17,8 @@ export function generateOpenApiSpec() {
             description: "BuyFlow REST API documentation",
         },
         servers: [
-            { url: "http://localhost:5000" },
-            { url: "https://buyflow-0gs4.onrender.com" },
+            { url: "http://localhost:5000"  , description: "Development server"},
+            { url: "https://buyflow-0gs4.onrender.com" , description: "Production server" },
         ],
     });
 }
