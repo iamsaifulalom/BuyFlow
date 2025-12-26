@@ -1,7 +1,8 @@
+"use client"
 import { useEffect, useState } from "react"
 
 /**
- * React hook to detect whether the current screen width
+ * @description React hook to detect whether the current screen width
  * is smaller than or equal to a given breakpoint.
  *
  * This hook listens to window resize changes using
@@ -28,25 +29,22 @@ import { useEffect, useState } from "react"
  */
 
 export function useSmallScreen(width: number = 1024) {
-  // Initialize state using a function to avoid synchronous setState in effect
-  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false; // SSR-safe
-    return window.matchMedia(`(max-width: ${width}px)`).matches;
-  });
+  // Start with undefined (safe for SSR)
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
+    // Now we are 100% on the client
     const mql = window.matchMedia(`(max-width: ${width}px)`);
 
-    // Listener for screen size changes
+    // Set initial value
+    setIsSmallScreen(mql.matches);
+
     const onChange = (e: MediaQueryListEvent) => {
       setIsSmallScreen(e.matches);
     };
 
     mql.addEventListener("change", onChange);
 
-    // Cleanup listener on unmount or width change
     return () => {
       mql.removeEventListener("change", onChange);
     };
@@ -54,3 +52,4 @@ export function useSmallScreen(width: number = 1024) {
 
   return { isSmallScreen };
 }
+

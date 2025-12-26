@@ -60,12 +60,10 @@ export function Sidebar({ children }: { children?: ReactNode }) {
             </div>
 
             {/* overlya */}
-            <div onClick={toggleSidebar}
-                className={cn(
-                    'fixed w-full bg-foreground/10 backdrop-blur-sm transition-all duration-300 overflow-y-auto top-0 left-0 h-screen',
-                    "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
-                    isSidebarOpen ? "translate-x-0" : "-translate-x-full",
-                )} />
+            {isSidebarOpen && <div
+                onClick={toggleSidebar}
+                className='fixed w-full translate-x-0 bg-foreground/10 transition-all duration-300 overflow-y-auto top-0 left-0 h-screen'
+            />}
         </>
     )
 
