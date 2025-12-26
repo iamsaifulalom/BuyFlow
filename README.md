@@ -69,72 +69,77 @@ Each domain is implemented as a **self-contained module**, inspired by Angular a
 
 ```bash
 backend/
-├── package.json
-│   └── Project metadata, scripts, dependencies
-├── pnpm-lock.yaml
+├── src/
+│   ├── app.js
+│   │   └── Express app configuration (middlewares, routes, docs, error handling)
+│   ├── server.js
+│   │   └── App entry point (starts server, binds port, handles process-level events)
+│   ├── load-docs.js
+│   │   └── Bootstraps OpenAPI/Swagger docs generation at app startup
+│   ├── common/
+│   │   └── Shared, reusable infrastructure code (framework-agnostic)
+│   │
+│   │   ├── docs/
+│   │   │   ├── extend-zod.js
+│   │   │   │   └── Extends Zod with OpenAPI metadata helpers
+│   │   │   └── generate-openapi.js
+│   │   │       └── Generates OpenAPI spec from Zod schemas and routes
+│   │   │
+│   │   ├── middleware/
+│   │   │   ├── allow-role.js
+│   │   │   │   └── Role-based access control (RBAC) middleware
+│   │   │   ├── error-handler.js
+│   │   │   │   └── Global Express error handler (AppError-aware)
+│   │   │   ├── not-found.js
+│   │   │   │   └── 404 handler for unknown routes
+│   │   │   └── resource-validator.js
+│   │   │       └── Validates request body/query/params using Zod schemas
+│   │   │
+│   │   ├── schema/
+│   │   │   └── schema.field.js
+│   │   │       └── Reusable Zod field definitions (id, pagination, timestamps)
+│   │   │
+│   │   └── utils/
+│   │       ├── app-error.js
+│   │       │   └── Custom error class for consistent API errors
+│   │       └── connect-db.js
+│   │           └── Database connection logic (MongoDB / Mongoose)
+│   │
+│   ├── modules/
+│   │   └── Feature-based domain modules (clean architecture)
+│   │
+│   │   ├── assets/
+│   │   │   ├── asset.controller.js
+│   │   │   │   └── Handles HTTP requests & responses
+│   │   │   ├── asset.dtos.js
+│   │   │   │   └── Zod schemas for validation & OpenAPI docs
+│   │   │   ├── asset.model.js
+│   │   │   │   └── Database schema/model definition
+│   │   │   ├── asset.repo.js
+│   │   │   │   └── Data access layer (DB queries only)
+│   │   │   ├── asset.routes.js
+│   │   │   │   └── Express routes mapping URLs to controllers
+│   │   │   └── asset.service.js
+│   │   │       └── Business logic layer (rules, orchestration)
+│   │   │
+│   │   ├── auth/
+│   │   │   ├── auth.controller.js
+│   │   │   │   └── Authentication request handlers
+│   │   │   ├── auth.docs.js
+│   │   │   │   └── Auth-specific OpenAPI documentation
+│   │   │   ├── auth.dtos.js
+│   │   │   │   └── Zod schemas for auth payloads
+│   │   │   ├── auth.routes.js
+│   │   │   │   └── Auth-related routes (login, register, refresh)
+│   │   │   └── auth.service.js
+│   │   │       └── Auth logic (JWT, hashing, sessions)
+│   │   │
+│   │   ├── categories/
+│   │   ├── products/
+│   │   └── users/
+├─ pnpm-lock.yaml
 │   └── Exact dependency versions for reproducible installs (PNPM)
-└── src/
-    ├── app.js
-    │   └── Express app configuration (middlewares, routes, docs, error handling)
-    ├── server.js
-    │   └── App entry point (starts server, binds port, handles process-level events)
-    ├── load-docs.js
-    │   └── Bootstraps OpenAPI/Swagger docs generation at app startup
-    ├── common/
-    │   └── Shared, reusable infrastructure code (framework-agnostic)
-    │   ├── docs/
-    │   │   ├── extend-zod.js
-    │   │   │   └── Extends Zod with OpenAPI metadata helpers
-    │   │   └── generate-openapi.js
-    │   │       └── Generates OpenAPI spec from Zod schemas and routes
-    │   ├── middleware/
-    │   │   ├── allow-role.js
-    │   │   │   └── Role-based access control (RBAC) middleware
-    │   │   ├── error-handler.js
-    │   │   │   └── Global Express error handler (AppError-aware)
-    │   │   ├── not-found.js
-    │   │   │   └── 404 handler for unknown routes
-    │   │   └── resource-validator.js
-    │   │       └── Validates request body/query/params using Zod schemas
-    │   ├── schema/
-    │   │   └── schema.field.js
-    │   │       └── Reusable Zod field definitions (id, pagination, timestamps)
-    │   └── utils/
-    │       ├── app-error.js
-    │       │   └── Custom error class for consistent API errors
-    │       └── connect-db.js
-    │           └── Database connection logic (MongoDB / Mongoose)
-    ├── modules/
-    │   └── Feature-based domain modules (clean architecture)
-    │   ├── assets/
-    │   │   ├── asset.controller.js
-    │   │   │   └── Handles HTTP requests & responses
-    │   │   ├── asset.dtos.js
-    │   │   │   └── Zod schemas for validation & OpenAPI docs
-    │   │   ├── asset.model.js
-    │   │   │   └── Database schema/model definition
-    │   │   ├── asset.repo.js
-    │   │   │   └── Data access layer (DB queries only)
-    │   │   ├── asset.routes.js
-    │   │   │   └── Express routes mapping URLs to controllers
-    │   │   └── asset.service.js
-    │   │       └── Business logic layer (rules, orchestration)
-    │   ├── auth/
-    │   │   ├── auth.controller.js
-    │   │   │   └── Authentication request handlers
-    │   │   ├── auth.docs.js
-    │   │   │   └── Auth-specific OpenAPI documentation
-    │   │   ├── auth.dtos.js
-    │   │   │   └── Zod schemas for auth payloads
-    │   │   ├── auth.routes.js
-    │   │   │   └── Auth-related routes (login, register, refresh)
-    │   │   └── auth.service.js
-    │   │       └── Auth logic (JWT, hashing, sessions)
-    │   │       └── Business logic layer (rules, orchestration)
-    │   ├── categories/
-    │   ├── products/
-    │   ├── users/
-
+└─ package.json
 ```
 
 ### Module Pattern
@@ -174,7 +179,7 @@ This module is suitable for real-world use in:
 
 
 
-```
+```bash
 frontend/
 ├─ src/
 │  ├─ features/
