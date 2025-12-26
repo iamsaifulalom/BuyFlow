@@ -9,7 +9,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return (
         <SidebarProvider>
             <Sidebar>
-                Side bar contents
+                sidebar
             </Sidebar>
             <SidebarInset>
                 {children}
