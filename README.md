@@ -52,9 +52,9 @@ The focus of this project is **architecture, system design, and correctness**, n
 
 ```bash
 ecommerce-app/
-├── APP_DATA_FLOW.md
 ├── backend/
 ├── frontend/
+├── APP_DATA_FLOW.md
 ├── README.md
 ├── REMINDER.md
 ├── ROAD_MAP.md
@@ -173,7 +173,52 @@ This module is suitable for real-world use in:
 ## 🎨 Frontend Structure (Feature-Based)
 
 
-frontend/src/ ├─ features/ │ ├─ auth/ │ ├─ products/ │ ├─ cart/ │ ├─ orders/ │ └─ admin/ │ ├─ shared/ │ ├─ components/ │ ├─ hooks/ │ └─ utils/ │ └─ styles/
+
+```
+frontend/
+├─ src/
+│  ├─ features/
+│  │   ├─ auth/
+│  │   │   ├─ components/     # LoginForm, SignupForm
+│  │   │   ├─ hooks/          # useAuth
+│  │   │   ├─ services/       # authService.ts
+│  │   │   └─ pages/          # login.tsx, signup.tsx
+│  │   │
+│  │   ├─ products/
+│  │   │   ├─ components/     # ProductCard, ProductList
+│  │   │   ├─ hooks/          # useProducts
+│  │   │   ├─ services/       # productService.ts
+│  │   │   └─ pages/          # products.tsx
+│  │   │
+│  │   ├─ cart/
+│  │   │   ├─ components/     # CartItem, CartSummary
+│  │   │   ├─ context/        # CartContext.tsx
+│  │   │   ├─ hooks/          # useCart.ts
+│  │   │   └─ pages/          # cart.tsx, checkout.tsx
+│  │   │
+│  │   ├─ orders/
+│  │   │   ├─ components/     # OrderList, OrderDetail
+│  │   │   ├─ hooks/          # useOrders
+│  │   │   ├─ services/       # orderService.ts
+│  │   │   └─ pages/          # orders.tsx
+│  │   │
+│  │   └─ admin/
+│  │       ├─ components/     # AdminSidebar, AdminTable
+│  │       ├─ hooks/          # useAdminOrders, useAdminProducts
+│  │       ├─ services/       # adminService.ts
+│  │       └─ pages/          # dashboard.tsx, products.tsx, orders.tsx
+│  │
+│  ├─ shared/
+│  │   ├─ components/         # Navbar, Footer, Modal, Buttons
+│  │   ├─ hooks/              # common hooks
+│  │   └─ utils/              # helpers like formatDate, calcTotal
+│  │
+│  └─ styles/                  # TailwindCSS / global CSS
+│
+├─ package.json
+├─ tsconfig.json
+└─ next.config.js
+```
 
 ### Frontend Philosophy
 
