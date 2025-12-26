@@ -1,4 +1,4 @@
-export default function LangindPage() {
+export default function HomePage() {
   return (
     <div>
       Landing pages
