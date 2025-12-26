@@ -1,5 +1,7 @@
-export default function HOME() {
+export default function LangindPage() {
   return (
-    <div>home page</div>
+    <div>
+      Landing pages
+    </div>
   )
 }
