@@ -6,7 +6,6 @@ import React, {
     useState,
 } from 'react';
 import { cn } from '../lib/utils';
-import { useSmallScreen } from '../hooks/use-small-screen';
 
 // 1. Define the context type
 interface SidebarProps {
@@ -45,33 +44,33 @@ export function SidebarProvider({ children }: { children?: ReactNode }) {
 
 
 // 5. Sidebar component
+
 export function Sidebar({ children }: { children?: ReactNode }) {
     const { isSidebarOpen, toggleSidebar } = useSidebar();
-    const { isSmallScreen } = useSmallScreen();
-
-    if (isSmallScreen) return (
-        <>
-            <div className={cn(
-                'fixed w-65 z-20 bg-background transition-all duration-300 overflow-y-auto top-0 left-0 h-screen',
-                "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
-                isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-            )}>
-                {children}
-            </div>
-
-            {/* overlya */}
-            {isSidebarOpen && <div
-                onClick={toggleSidebar}
-                className='fixed w-full translate-x-0 bg-foreground/10 transition-all duration-300 overflow-y-auto top-0 left-0 h-screen'
-            />}
-        </>
-    )
 
     return (
-        <aside className="z-30 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden overflow-y-auto h-screen w-75 shrink-0 border-r hidden lg:block bg-white ease-in-out">
-            {children}
-        </aside>
-    )
+        <>
+            {/* Sidebar container */}
+            <aside
+                className={cn(
+                    "fixed top-0 left-0 h-screen w-65 z-20 bg-background transition-transform duration-300 overflow-y-auto",
+                    "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+                    "lg:static lg:translate-x-0 lg:w-75 shrink-0 lg:border-r lg:block",
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                )}
+            >
+                {children}
+            </aside>
+
+            {/* Overlay for mobile */}
+            {isSidebarOpen && (
+                <div
+                    onClick={toggleSidebar}
+                    className="fixed top-0 left-0 w-full h-screen bg-foreground/10 z-10 lg:hidden"
+                />
+            )}
+        </>
+    );
 }
 
 
