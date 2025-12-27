@@ -1,5 +1,6 @@
 // src/schema/auth.fields.ts
 import { extendedZod as z } from '../docs/extend-zod.js'
+import mongoose from 'mongoose';
 
 export const nameField = z
     .string()
@@ -28,9 +29,12 @@ export const agreeField = z
 
 export const tokenField = z.string().min(1, "Token is required");
 
+
+export const mongooseId = z.string()
+    .nonempty("ID is required")
+    .refine((val)=> mongoose.Types.ObjectId.isValid(val), {
+    message: "Invalid ObjectId",
+  })
+
 // Reusable schema for route param `id` (MongoDB ObjectId style)
-export const idParam = z.object({
-    id: z.string()
-        .length(24, "Invalid ID")  // typical length for MongoDB ObjectId
-        .nonempty("ID is required")
-})
+export const idParam = z.object({ id: mongooseId })

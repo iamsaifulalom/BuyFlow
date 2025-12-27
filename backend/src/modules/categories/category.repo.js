@@ -32,7 +32,7 @@ export const categoryRepo = {
     getCategories: async () => {
         const categories = await Category
         .find()
-        .populate("image", "originalName url altText -_id");
+        .populate("image", "originalName url altText filePath -_id");
         if (!categories) throw new AppError("Category does not exist.", 409);
         return categories
     },
