@@ -29,8 +29,8 @@ export const categoryService = {
         const categories = await categoryRepo.getCategories();
 
         const structuredCategories = categories
-            .map(({ name, slug, image }) => ({
-                name, slug, image
+            .map(({ name, slug, image, _id }) => ({
+                name, slug, image, id: _id
             }));
 
         return [...structuredCategories]
