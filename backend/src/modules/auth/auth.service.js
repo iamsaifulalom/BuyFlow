@@ -24,9 +24,13 @@ export const authService = {
             orders,
             address,
             chats,
+            _id,
+            createdAt,
+            updatedAt,
             ...restData
         } = newUser;
-        return restData
+        
+        return { id: _id, ...restData }
     },
 
     signInUser: async (body) => {
@@ -39,8 +43,9 @@ export const authService = {
         if (!match) throw new AppError("Wrong credentials", 401);
 
         const { _id, name, role } = user;
+
         const token = JWT.sign(
-            { _id, name, role, email },
+            { id: _id, name, role, email },
             process.env.JWT_SECRET || "JWT_SECRET",
             { expiresIn: "7d" }
         );
