@@ -4,11 +4,13 @@ import { allowRole } from '../../common/middleware/allow-role.js'
 import { createCategorySchema, updateCategorySchema } from './category.dtos.js';
 import { categoryController } from './category.controller.js';
 import { idParam } from '../../common/schema/schema.field.js';
+import { checkAuth } from '../../common/middleware/check-auth.js';
 
 const routes = Router();
 
 routes.post(
     "/",
+    checkAuth(),
     allowRole(["ADMIN"]),
     validateResource(createCategorySchema),
     categoryController.create
@@ -16,6 +18,7 @@ routes.post(
 
 routes.put(
     "/:id",
+    checkAuth(),
     allowRole(["ADMIN"]),
     validateResource(idParam, "params"),
     validateResource(updateCategorySchema),
@@ -24,6 +27,7 @@ routes.put(
 
 routes.delete(
     "/:id",
+    checkAuth(),
     allowRole(["ADMIN"]),
     validateResource(idParam, "params"),
     categoryController.delete
