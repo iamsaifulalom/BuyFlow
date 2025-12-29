@@ -33,6 +33,6 @@ export const categoryService = {
                 name, slug, image, id: _id
             }));
 
-        return [...structuredCategories]
+            return [...structuredCategories]
     },
 }
