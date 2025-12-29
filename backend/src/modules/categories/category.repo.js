@@ -32,7 +32,8 @@ export const categoryRepo = {
     getCategories: async () => {
         const categories = await Category
         .find()
-        .populate("image", "originalName url altText filePath _id");
+        .populate("image", "originalName url altText filePath -_id");
+        console.log(categories[0].image)
         return categories
     },
 }

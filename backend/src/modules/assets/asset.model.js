@@ -27,7 +27,18 @@ assetSchema.virtual("url").get(function () {
   return `${process.env.CDN_BASE_URL}/${this.filePath}`;
 });
 
-assetSchema.set("toJSON", { virtuals: true });
-assetSchema.set("toObject", { virtuals: true });
+assetSchema.set("toJSON", {
+  virtuals: true, versionKey: false, transform: (doc, ret) => {
+    delete ret.id; // remove the automatic id virtual
+    return ret;
+  }
+});
+
+assetSchema.set("toObject", {
+  virtuals: true, versionKey: false, transform: (doc, ret) => {
+    delete ret.id; // same for toObject
+    return ret;
+  }
+});
 
 export const Asset = mongoose.model("Asset", assetSchema);
