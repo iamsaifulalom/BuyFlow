@@ -29,14 +29,14 @@ assetSchema.virtual("url").get(function () {
 
 assetSchema.set("toJSON", {
   virtuals: true, versionKey: false, transform: (doc, ret) => {
-    delete ret.id; // remove the automatic id virtual
+    delete ret.id; 
     return ret;
   }
 });
 
 assetSchema.set("toObject", {
   virtuals: true, versionKey: false, transform: (doc, ret) => {
-    delete ret.id; // same for toObject
+    delete ret.id;
     return ret;
   }
 });

@@ -14,13 +14,21 @@ export const cartsRepo = {
     },
 
     getCarBytId: async (cartId) => {
-        return Cart.findById(cartId)
+        const cartDoc = await Cart.findById(cartId)
             .populate({
                 path: "items.product",
                 select: "name price discountPrice slug images",
                 populate: {
-                    path: "images"
+                    path: "images",
+                    select: "filePath originalName altText _id"
                 }
             })
+        if (!cartDoc) return null;
+
+        return cartDoc.toObject()
+
+    },
+    deleteById: async (cartId) => {
+        return await Cart.findByIdAndDelete(cartId)
     }
 }

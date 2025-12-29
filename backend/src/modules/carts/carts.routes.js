@@ -14,19 +14,24 @@ routes.post(
     cartsController.addItem,
 )
 
-// routes.put(
-//     "/:id",
-//     checkAuth(),
-//     allowRole(["ADMIN"]),
-//     validateResource(idParam, "params"),
-// )
+routes.put(
+    "/",
+    checkAuth(),
+    validateResource(cartItemSchema),
+    cartsController.updateCart
+)
 
-// routes.delete(
-//     "/:id",
-//     checkAuth(),
-//     allowRole(["ADMIN"])
-// )
+routes.delete(
+    "/:id",
+    checkAuth(),
+    validateResource(idParam, "params"),
+    cartsController.deleteCart
+)
 
-// routes.get("/",)
+routes.get(
+    "/",
+    checkAuth(),
+    cartsController.getCart
+)
 
 export default routes
