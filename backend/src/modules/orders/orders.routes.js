@@ -2,8 +2,9 @@ import { Router } from 'express';
 import { validateResource } from '../../common/middleware/resource-validator.js'
 import { idParam } from '../../common/schema/schema.field.js';
 import { checkAuth } from '../../common/middleware/check-auth.js';
+import { allowRole } from '../../common/middleware/allow-role.js';
 import { ordersController } from './orders.controller.js';
-import { OrderSchema } from './orders.dtos.js';
+import { OrderSchema, OrderUpdateSchema } from './orders.dtos.js';
 
 const routes = Router();
 
@@ -14,17 +15,28 @@ routes.post(
     ordersController.createAnOrder
 )
 
-// routes.put(
-//     "/",
-//     checkAuth(),
-//     validateResource(cartItemSchema),
-// )
+routes.put(
+    "/:id",
+    checkAuth(),
+    allowRole(["ADMIN"]),
+    validateResource(idParam, "params"),
+    validateResource(OrderUpdateSchema),
+    ordersController.updateOrder
+)
 
-// routes.delete(
-//     "/:id",
-//     checkAuth(),
-//     validateResource(idParam, "params"),
-// )
+routes.delete(
+    "/:id",
+    checkAuth(),
+    allowRole(["ADMIN"]),
+    validateResource(idParam, "params"),
+    ordersController.deleteOrder
+)
+
+routes.get(
+    "/",
+    checkAuth(),
+    ordersController.getOrders
+)
 
 // routes.get(
 //     "/",

@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const OrderStatus = ['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
+export const OrderStatus = ['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
 
 const AddressSchema = new Schema({
     name: String,
