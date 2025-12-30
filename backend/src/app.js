@@ -19,6 +19,7 @@ import assetsRoutes from './modules/assets/asset.routes.js';
 import categoriesRoutes from './modules/categories/category.routes.js';
 import productsRoutes from './modules/products/products.routes.js';
 import cartsRoutes from './modules/carts/carts.routes.js';
+import ordersRoutes from './modules/orders/orders.routes.js';
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use("/assets", assetsRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/products", productsRoutes);
 app.use("/carts", cartsRoutes);
+app.use("/orders", ordersRoutes);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(generateOpenApiSpec()));
 
 // error handler 
