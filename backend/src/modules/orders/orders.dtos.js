@@ -1,6 +1,7 @@
 import { extendedZod as z } from "../../common/docs/extend-zod.js";
 import { mongooseId } from "../../common/schema/schema.field.js";
 import { PaymentMethod } from "../payments/payment.model.js";
+import { OrderStatus } from "./orders.model.js";
 
 const addressSchema = z.object({
     name: z.string().min(2, "Name is required"),
@@ -17,3 +18,7 @@ export const OrderSchema = z.object({
     paymentMethod: z.enum(PaymentMethod),
     saveAddress: z.boolean().optional().default(false)
 });
+
+export const OrderUpdateSchema = z.object({
+    status: z.enum(OrderStatus)
+})

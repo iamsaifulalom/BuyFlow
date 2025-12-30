@@ -72,5 +72,29 @@ export const orderService = {
         }
     },
 
+    deleteOrder: async (orderId) => {
+        const order = await Order.findByIdAndDelete(orderId);
+        if (!order) throw new AppError("Order does't exist.", 404)
+        return { orderId }
+    },
+
+    updateOrder: async ({ orderId, orderStatus }) => {
+
+        const updatedOrder = await Order
+            .findByIdAndUpdate(orderId, {
+                status: orderStatus
+            }, { new: true });
+
+        if (!updatedOrder) throw new AppError("Order does't exist.", 404);
+
+        return  updatedOrder 
+    },
+
+    getOrders: async (user) => {
+        const allOrders = await Order.find();
+        if (!allOrders) throw new AppError("Orders don't exist.", 404);
+        return allOrders 
+    },
     
+
 }
