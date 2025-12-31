@@ -4,8 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "sonner";
-import { SignUpBody , signUpSchema } from "../schema/auth.schema";
+import { SignUpBody, signUpSchema } from "../schema/auth.schema";
 import { signUp } from "../api/auth";
+import { isAxiosError } from "axios";
 
 export function useSignUp() {
     const form = useForm<SignUpBody>({
@@ -29,8 +30,16 @@ export function useSignUp() {
             setIsLoading(true)
             const res = await signUp(data)
             toast.success(res.message)
-        } catch (err: any) {
-            const errMessage = err?.response?.data?.message || "Something went wrong!";
+        } catch (err) {
+            let errMessage = "Something went wrong!";
+
+            if (err instanceof Error) {
+                errMessage = err.message;
+            } else if (isAxiosError(err)) {
+                // Use optional chaining to safely access nested properties
+                errMessage = err.response?.data?.message || errMessage;
+            }
+
             toast.error(errMessage);
         } finally {
             setIsLoading(false)
