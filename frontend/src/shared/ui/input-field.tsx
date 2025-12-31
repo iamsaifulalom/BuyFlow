@@ -1,7 +1,7 @@
 'use client';
 
 import { FormControl, FormField, FormItem, FormMessage } from "./form";
-import { UseFormReturn, FieldValues } from "react-hook-form";
+import { UseFormReturn, FieldValues , Path } from "react-hook-form";
 import { Input } from "./input";
 import { Password } from "./password";
 import { Checkbox } from "./checkbox";
@@ -9,7 +9,7 @@ import TermsAndPrivacyLabel from "@/features/auth/components/termsa-nd-privacy-l
 
 interface InputFieldProps<T extends FieldValues> {
   form: UseFormReturn<T>;
-  name: any;
+  name: Path<T>;
   placeholder?: string;
   type?: React.HTMLInputTypeAttribute; // text, password, checkbox, etc.
 }
