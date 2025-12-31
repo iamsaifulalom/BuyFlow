@@ -20,6 +20,7 @@ import categoriesRoutes from './modules/categories/category.routes.js';
 import productsRoutes from './modules/products/products.routes.js';
 import cartsRoutes from './modules/carts/carts.routes.js';
 import ordersRoutes from './modules/orders/orders.routes.js';
+import cors from 'cors'
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.disable("x-powered-by");
 
 // midleware
 app.use(express.json());
+app.use(cors({origin: "*"}));
 
 // routes
 app.use("/auth", authRoutes);
