@@ -4,36 +4,37 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "sonner";
-import { SignUpBody, signUpSchema } from "../schema/auth.schema";
-import { signUp } from "../api/auth";
-import { isAxiosError } from "axios";
+import { SignInBody, signInSchema } from "../schema/auth.schema";
 import { useDelayedRedirect } from "@/shared/hooks/use-delayed-redirect";
+import { signIn } from "../api/auth";
+import { isAxiosError } from "axios";
 
-export function useSignUp() {
-    const {triggerRedirect} = useDelayedRedirect()
-    const form = useForm<SignUpBody>({
-        resolver: zodResolver(signUpSchema),
+export function useSignIn() {
+
+    const { triggerRedirect } = useDelayedRedirect();
+
+    const form = useForm<SignInBody>({
+        resolver: zodResolver(signInSchema),
         defaultValues: {
-            email: "",
-            name: "",
-            password: "",
-            termsAccepted: false
+            email: "hello@saifulalom.com",
+            password: "saifulalom2",
         }
     });
 
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState<string | null>(null);
 
-    async function handleSubmit(data: SignUpBody) {
+    async function handleSubmit(data: SignInBody) {
         setIsLoading(true);
         setServerError(null);
 
         try {
             setIsLoading(true)
-            const res = await signUp(data)
+            const res = await signIn(data)
             toast.success(res.message);
-
-            triggerRedirect("/sign-in" , 3000);
+            // save to local storage
+            localStorage.setItem("authToken", res.data.authToken)
+            triggerRedirect("/admin/dashboard", 3000)
         } catch (err) {
             let errMessage = "Something went wrong!";
 
@@ -41,7 +42,7 @@ export function useSignUp() {
                 errMessage = err.response?.data?.message || errMessage;
             }
 
-            toast.error(errMessage);
+            toast.error(errMessage)
         } finally {
             setIsLoading(false)
         }
