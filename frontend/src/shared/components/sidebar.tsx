@@ -30,7 +30,7 @@ export function SidebarProvider({ children }: { children?: ReactNode }) {
 
     return (
         <SidebarContext.Provider value={{ isSidebarOpen, toggleSidebar: () => setIsSidebarOpen(p => !p) }} >
-            <div className="relative flex h-screen overflow-hidden">
+            <div className="relative flex h-dvh overflow-hidden">
                 {children}
             </div>
         </SidebarContext.Provider>
@@ -46,7 +46,7 @@ export function Sidebar({ children }: { children?: ReactNode }) {
     return (
         <>
             <aside className={cn(
-                "w-64 h-[100dvh] border-r z-20 overflow-y-auto transition-transform fixed left-0 right-0 bg-background lg:hidden",
+                "w-64 h-dvh border-r z-20 overflow-y-auto transition-transform fixed left-0 right-0 bg-background lg:hidden",
                 "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full"
             )}>
@@ -56,7 +56,7 @@ export function Sidebar({ children }: { children?: ReactNode }) {
             {isSidebarOpen && <div onClick={toggleSidebar} className="fixed top-0 left-0 w-full h-screen bg-foreground/10 z-10 lg:hidden" />}
 
             <aside className={cn(
-                "w-64 h-[100dvh] border-r shrink-0 overflow-y-auto hidden lg:block",
+                "w-64 h-dvh border-r shrink-0 overflow-y-auto hidden lg:block",
                 "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
             )}>
                 {children}
