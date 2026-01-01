@@ -6,6 +6,9 @@ import { AppError } from '../../common/utils/app-error.js';
 
 export const authService = {
 
+    getUserDetails: ({ iat, exp, ...user }) => {
+        return user
+    },
     createUser: async (body) => {
         const hashedPassword = await bcrypt.hash(body.password, 10);
 
@@ -29,7 +32,7 @@ export const authService = {
             updatedAt,
             ...restData
         } = newUser;
-        
+
         return { id: _id, ...restData }
     },
 
@@ -50,9 +53,6 @@ export const authService = {
             { expiresIn: "7d" }
         );
 
-        return {
-            authToken: token,
-            user: { name, email, role }
-        }
+        return { accessToken: token }
     },
 }

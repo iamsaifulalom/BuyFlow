@@ -18,7 +18,7 @@ export default function SignInForm() {
                 <p className='text-[16px] text-muted-foreground'>
                     Don&lsquo;t have an account?
                     <Link href="/sign-up" className='font-bold ml-2 text-green-600'>
-                        Sign Up
+                        Sign up
                     </Link>
                 </p>
             </div>

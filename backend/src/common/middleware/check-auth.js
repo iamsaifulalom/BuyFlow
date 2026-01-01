@@ -24,7 +24,7 @@ export function checkAuth() {
             if (error.name === "JsonWebTokenError") {
                 throw new AppError("Invalid token. Please sign in again.", 401);
             }
-            if (err.name === "JsonWebTokenError") {
+            if (error.name === "JsonWebTokenError") {
                 throw new AppError("Invalid token. Please sign in again.", 401);
             }
             next(error)

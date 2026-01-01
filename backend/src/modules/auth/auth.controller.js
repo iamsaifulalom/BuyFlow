@@ -1,10 +1,18 @@
 import { authService } from "./auth.service.js";
+import { sendResponse } from '../../common/utils/send-response.js'
 
 export const authController = {
     userDetails: async (req, res, next) => {
         try {
-            console.log(req)
-            res.status(200).json({ name: "saiful", role: "admin" })
+            const user = authService.getUserDetails(req.user);
+
+            sendResponse({
+                res,
+                data: user,
+                message: "User details",
+                statusCode: 200,
+                success: true
+            })
         } catch (error) {
             next(error)
         }

@@ -5,13 +5,12 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "sonner";
 import { SignInBody, signInSchema } from "../schema/auth.schema";
-import { useDelayedRedirect } from "@/shared/hooks/use-delayed-redirect";
-import { signIn } from "../api/auth";
 import { isAxiosError } from "axios";
+import { useAuth } from "@/shared/providers/auth-provider";
 
 export function useSignIn() {
 
-    const { triggerRedirect } = useDelayedRedirect();
+    const { signInUser } = useAuth()
 
     const form = useForm<SignInBody>({
         resolver: zodResolver(signInSchema),
@@ -30,11 +29,7 @@ export function useSignIn() {
 
         try {
             setIsLoading(true)
-            const res = await signIn(data)
-            toast.success(res.message);
-            // save to local storage
-            localStorage.setItem("authToken", res.data.authToken)
-            triggerRedirect("/admin/dashboard", 3000)
+            await signInUser(data);
         } catch (err) {
             let errMessage = "Something went wrong!";
 

@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/shared/providers/auth-provider";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
@@ -20,10 +21,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${roboto.className}`}>
-        {children}
-        <Toaster richColors />
-      </body>
+      <AuthProvider>
+        <body className={`${poppins.variable} ${roboto.className}`}>
+          {children}
+          <Toaster richColors />
+        </body>
+      </AuthProvider>
     </html>
   );
 }
