@@ -4,8 +4,14 @@ import React, {
     useContext,
     ReactNode,
     useState,
+    ComponentType,
+    SVGProps,
+    FC,
 } from 'react';
 import { cn } from '../lib/utils';
+import Link from 'next/link';
+import { Button } from '../ui/button';
+import { usePathname } from 'next/navigation';
 
 //  Define the context type
 interface SidebarProps {
@@ -40,7 +46,7 @@ export function SidebarProvider({ children }: { children?: ReactNode }) {
 
 // Sidebar component
 
-export function Sidebar({ children }: { children?: ReactNode }) {
+export function Sidebar({ children  , className}: { children?: ReactNode , className?: string}) {
     const { isSidebarOpen, toggleSidebar } = useSidebar();
 
     return (
@@ -48,7 +54,8 @@ export function Sidebar({ children }: { children?: ReactNode }) {
             <aside className={cn(
                 "w-64 h-dvh border-r z-20 overflow-y-auto transition-transform fixed left-0 right-0 bg-background lg:hidden",
                 "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
-                isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                isSidebarOpen ? "translate-x-0" : "-translate-x-full",
+                className
             )}>
                 {children}
             </aside>
@@ -58,6 +65,7 @@ export function Sidebar({ children }: { children?: ReactNode }) {
             <aside className={cn(
                 "w-64 h-dvh border-r shrink-0 overflow-y-auto hidden lg:block",
                 "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+                className
             )}>
                 {children}
             </aside>
@@ -76,3 +84,34 @@ export function SidebarInset({ children }: { children?: ReactNode }) {
     )
 }
 
+
+// -------------------- Section --------------------
+type SidebarSectionProps = {
+    sectionTitle: string;
+    options: { name: string; path: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }[];
+};
+
+export const SidebarSection: FC<SidebarSectionProps> = ({ sectionTitle, options }) => {
+
+    const { toggleSidebar } = useSidebar();
+    const pathname = usePathname()
+
+    return (
+        <div className="flex flex-col gap-4">
+            {sectionTitle && <div className="font-semibold">{sectionTitle}</div>}
+            <div className="ml-5 flex gap-1 flex-col">
+                {options.map(({ path, Icon, name }) => (
+                    <Link key={name} href={path}>
+                        <Button
+                            onClick={toggleSidebar}
+                            variant={pathname === path ? "default" : "ghost"}
+                            className="flex gap-2 py-6 w-full justify-start"
+                        >
+                            <Icon /> {name}
+                        </Button>
+                    </Link>
+                ))}
+            </div>
+        </div>
+    );
+}
