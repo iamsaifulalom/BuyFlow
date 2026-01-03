@@ -2,9 +2,11 @@
 
 import {
     Sidebar,
+    SidebarFooter,
     SidebarInset,
     SidebarProvider,
-    SidebarSection,
+    SidebarContent,
+    SidebarHeader,
 } from "@/shared/components/sidebar";
 import { adminMenu } from "@/shared/constants/admin-sidebar";
 import { useRequireAuth } from "@/shared/providers/auth-provider";
@@ -19,13 +21,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     return (
         <SidebarProvider>
-            <Sidebar className="px-4">
-                {adminMenu.map(menu => (
-                    <SidebarSection
-                        key={menu.sectionTitle}
-                        {...menu}
-                    />
-                ))}
+            <Sidebar>
+                <SidebarHeader/>
+                <SidebarContent sections={adminMenu}/>
+                <SidebarFooter/>
             </Sidebar>
             <SidebarInset>{children}</SidebarInset>
         </SidebarProvider>

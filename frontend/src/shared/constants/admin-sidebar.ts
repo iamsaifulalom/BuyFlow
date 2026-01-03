@@ -1,20 +1,22 @@
-import { 
+import {
     BoxIcon,
     FolderCodeIcon,
-    HomeIcon, 
-    ReceiptIcon, 
-    UsersIcon 
+    HomeIcon,
+    ReceiptIcon,
+    UsersIcon,
+    Settings,
+    MessageCircleIcon
 } from "lucide-react";
 
 export const adminMenu = [
     {
-        sectionTitle: "Main menus",
-        options: [
-            { name: "Home", path: "/admin/dashboard", Icon: HomeIcon },
-            { name: "Products", path: "/admin/products", Icon: BoxIcon },
-            { name: "Categories", path: "/admin/categories", Icon: FolderCodeIcon },
-            { name: "Customers", path: "/admin/customers", Icon: UsersIcon },
-            { name: "Orders", path: "/admin/orders", Icon: ReceiptIcon },
-        ]
-    }
-]
+        title: "Menus",
+        items: [
+            { label: "Home", href: "/admin/dashboard", Icon: HomeIcon },
+            { label: "Products", href: "/admin/products", Icon: BoxIcon },
+            { label: "Categories", href: "/admin/categories", Icon: FolderCodeIcon },
+            { label: "Customers", href: "/admin/customers", Icon: UsersIcon },
+            { label: "Orders", href: "/admin/orders", Icon: ReceiptIcon },
+        ],
+    },
+];
