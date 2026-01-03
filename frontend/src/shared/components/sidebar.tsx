@@ -78,7 +78,7 @@ export function Sidebar({ children, className }: { children?: ReactNode, classNa
 // 6. Sidebar inset
 export function SidebarInset({ children }: { children?: ReactNode }) {
     return (
-        <main className="h-screen overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden duration-300 ease-in-out">
+        <main className="h-screen overflow-y-auto flex-col flex-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden duration-300 ease-in-out">
             {children}
         </main>
     )
@@ -98,9 +98,8 @@ export function SidebarFooter() {
     )
 }
 export function SidebarHeader() {
-
     return (
-        <Link href="/" className="px-6 items-center py-4 border-b">
+        <Link href="/" className="px-6 flex items-center h-16 border-b">
             <Image src="/images/logo.png" alt='site-logo' width={100} height={50} />
         </Link>
     )
