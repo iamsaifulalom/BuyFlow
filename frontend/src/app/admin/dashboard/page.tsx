@@ -1,12 +1,8 @@
 "use client"
-import { useSidebar } from '@/shared/components/sidebar'
-import { MenuIcon } from 'lucide-react'
 
 export default function AdminDashboard() {
-  const { toggleSidebar } = useSidebar()
   return (
-    <div className='items-center gap-10' >
-      <MenuIcon className='lg:hidden' onClick={toggleSidebar} /> <br />
+    <div className='items-center bg-muted w-full min-h-dvh gap-10' >
 
     </div>
   )
