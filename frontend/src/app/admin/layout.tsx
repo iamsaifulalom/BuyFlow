@@ -1,6 +1,6 @@
 "use client";
 
-import AdminHeader from "@/shared/components/admin-header";
+// import AdminHeader from "@/shared/components/admin-header";
 import {
     Sidebar,
     SidebarFooter,
@@ -28,7 +28,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <SidebarFooter/>
             </Sidebar>
             <SidebarInset>
-                <AdminHeader/>
+                {/* <AdminHeader/> */}
                 {children}
             </SidebarInset>
         </SidebarProvider>

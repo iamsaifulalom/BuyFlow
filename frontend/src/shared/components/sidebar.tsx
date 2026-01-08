@@ -6,14 +6,12 @@ import React, {
     useState,
     ComponentType,
     SVGProps,
-    FC,
 } from 'react';
 import { cn } from '../lib/utils';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { date } from 'zod';
 
 //  Define the context type
 interface SidebarProps {
@@ -54,7 +52,7 @@ export function Sidebar({ children, className }: { children?: ReactNode, classNa
     return (
         <>
             <aside className={cn(
-                "w-64 h-dvh border-r z-20 overflow-y-auto transition-transform fixed flex flex-col left-0 right-0 bg-background lg:hidden",
+                "w-64 h-dvh border-r z-30 overflow-y-auto transition-transform fixed flex flex-col left-0 right-0 bg-background lg:hidden",
                 "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full",
                 className
@@ -62,7 +60,7 @@ export function Sidebar({ children, className }: { children?: ReactNode, classNa
                 {children}
             </aside>
 
-            {isSidebarOpen && <div onClick={toggleSidebar} className="fixed top-0 left-0 w-full h-screen bg-foreground/10 z-10 lg:hidden" />}
+            {isSidebarOpen && <div onClick={toggleSidebar} className="fixed top-0 left-0 w-full h-screen bg-foreground/10 z-20 lg:hidden" />}
 
             <aside className={cn(
                 "w-64 h-dvh border-r shrink-0  hidden lg:flex flex-col justify-between",

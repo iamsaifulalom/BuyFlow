@@ -8,9 +8,9 @@ interface SearchProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export default function Search({ onClear, ...props }: SearchProps) {
     return (
-        <div className='flex items-center border gap-3 w-full rounded-lg px-2 text-muted-foreground'>
-            <SearchIcon size={20}/>
-            <Input {...props} type='search' className='border-none h-9 text-accent-foreground' />
+        <div onFocus={onClear} className='relative flex items-center border gap-1 w-full rounded-lg px-2 text-muted-foreground'>
+            <SearchIcon size={20} />
+            <Input {...props}  type='search'  className='border-none h-9 text-accent-foreground' />
         </div>
     )
 }
